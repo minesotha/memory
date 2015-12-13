@@ -4,21 +4,36 @@ var entTime=120;
 var afterGame =false;
 function time()
 {
-    if(sec>=-1&&sec<endTime){
-        $('#time').html(sec++);
-    }
-	else if (afterGame==false){
-		 $('#time').html(sec++);
-		var decision = confirm("Koniec gry! Wynik: "+score+"\n Chcesz zacząć grę od nowa?");
-		if (decision==true){
-			Start();
-		}
-		else{
-			
-			afterGame=true;
-		}
+	if (score == size/2 && afterGame==false){
+	 $('#time').html(sec++);
+	var decision = confirm("Wygrałeś! Twój czas: "+sec+"\n Ilość punktów: "+score+"\n Chcesz zacząć grę od nowa?");
+	AfterGameDecision(decision);
 	
 	}
+    else if (afterGame==false) {
+		if(sec>=-1&&sec<endTime){
+			$('#time').html(sec++);
+		}
+
+		else{
+			 $('#time').html(sec++);
+			var decision = confirm("Koniec gry! Wynik: "+score+"\n Chcesz zacząć grę od nowa?");
+			AfterGameDecision(decision);
+		
+		}
+	}
+}
+
+
+function AfterGameDecision(decision){
+	
+		if (decision==true){
+				Start();
+			}
+			else{
+				
+				afterGame=true;
+			}
 }
 
 function getId(strId) {
@@ -41,8 +56,8 @@ function Picture(accept) {
 
 var width=0;
 var height=0;
+var size=1;
 function BoardSize(){
-	var size=1;
 	while(size%2!=0 || size<12 || size > 100){
 	width = prompt("Wybierz szerokość planszy: ", "3");
 	height=prompt("Wybierz wysokość planszy", "4");
