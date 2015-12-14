@@ -1,6 +1,5 @@
 setInterval(function(){time()},1000);
 var sec = -1;
-var entTime=120;
 var afterGame =false;
 var revealed = 0;
 function time()
@@ -48,18 +47,24 @@ function Picture(accept) {
     this.val;
     do{
         rand = Math.floor(Math.random() * accept.length);
-    }while(accept[rand]==2);
+    }
+	while(accept[rand]==2);
     accept[rand]++;
     this.val = rand;
 }
 
+function ShowPicture(object, val){
+			console.log(val);
+			object.html("");
+			 object.append('<img src=obrazki/'+val+'.png />');
+}
 
 
 var width=0;
 var height=0;
 var size=1;
 function BoardSize(){
-	while(size%2!=0 || size<12 || size > 100){
+	while(size%2!=0 || size<12 || size > 56){
 	width = prompt("Wybierz szerokość planszy: ", "3");
 	height=prompt("Wybierz wysokość planszy", "4");
 	size = width*height;
@@ -102,8 +107,10 @@ function GameBoard() {
     function show(obj){
 		if(afterGame==false & isBlock==false)
 		{
+			
 			val = getPicture(getId(obj.id));
-			$(obj).html(val);
+			ShowPicture($(obj), val);
+			//$(obj).html(val);
 			$(obj).unbind();
 			if(last==-1)
 			{
@@ -125,8 +132,8 @@ function GameBoard() {
 					$(obj).bind("click", function() {show(this);});
 				$("#col"+lastId[0]+"_"+lastId[1]).bind("click", function() {show(this);});
 					setTimeout(function(){
-						$(obj).html("X");
-						$("#col"+lastId[0]+"_"+lastId[1]).html("X");
+						$(obj).html('<img src=obrazki/x.jpg />');
+						$("#col"+lastId[0]+"_"+lastId[1]).html('<img src=obrazki/x.jpg />');
 						isBlock=false;
 					}, 1000);
 					
@@ -139,7 +146,8 @@ function GameBoard() {
     for(var i=0; i<n; i++){
         $("#board").append("<div class=row id=row"+i+"> ");
         for(var j=0; j<m; j++){
-            $("#board #row"+i).append("<span class=col id=col"+i+"_"+j+">X");
+            $("#board #row"+i).append("<span class=col id=col"+i+"_"+j+">");
+			$("#col"+i+"_"+j).append('<img src=obrazki/x.jpg />');
             $("#col"+i+"_"+j).bind("click", function() {
                 show(this);
             });
@@ -160,8 +168,8 @@ function Start(){
     board = new GameBoard();
     sec=0;
 	score=0;
-    //$("#start").unbind("click");
-
+	revealed=0;
+	$("#revealed").html("0");
 }
 
 $().ready(function () {
