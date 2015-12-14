@@ -95,13 +95,15 @@ function GameBoard() {
     }
 
     function getPicture(id) {
-        return picBoard[id[0]][id[1]].val
+        return picBoard[id[0]][id[1]].val;
     }
 
     function show(obj){
-		if(afterGame==false & isBlock==false){
+		if(afterGame==false & isBlock==false)
+		{
 			val = getPicture(getId(obj.id));
 			$(obj).html(val);
+			$(obj).unbind();
 			if(last==-1)
 			{
 				last = val;
@@ -111,14 +113,15 @@ function GameBoard() {
 			{
 				if(last==val)
 				{
-					$('#score').html(++score);
-					 $(obj).unbind();
-					  $("#col"+lastId[0]+"_"+lastId[1]).unbind();
+				$('#score').html(++score);
+				$("#col"+lastId[0]+"_"+lastId[1]).unbind();
 					
 				} 
 				else 
 				{
 					isBlock=true;
+					$(obj).bind("click", function() {show(this);});
+				$("#col"+lastId[0]+"_"+lastId[1]).bind("click", function() {show(this);});
 					setTimeout(function(){
 						$(obj).html("X");
 						$("#col"+lastId[0]+"_"+lastId[1]).html("X");

@@ -31,6 +31,8 @@ ul {
 }
 
 .col {
+	cursor: pointer; 
+	cursor: hand;
     padding: 4px;
     margin: 2px;
     background-color: #CF9;
@@ -39,4 +41,6 @@ ul {
 
 .row {
     margin: 12px;
+	cursor: pointer; 
+	cursor: hand;
 }
