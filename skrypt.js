@@ -68,6 +68,7 @@ function BoardSize(){
 
 
 var score;
+var isBlock=false;
 function GameBoard() {
 
 	BoardSize();
@@ -98,27 +99,35 @@ function GameBoard() {
     }
 
     function show(obj){
-		if(afterGame==false){
-        val = getPicture(getId(obj.id));
-        $(obj).html(val);
-        if(last==-1){
-            last = val;
-            lastId = getId(obj.id);
-        } else {
-            if(last==val){
-                $('#score').html(++score);
-				 $(obj).unbind();
-				  $("#col"+lastId[0]+"_"+lastId[1]).unbind();
-				
-            } else {
-                setTimeout(function(){
-                    $(obj).html("X");
-                    $("#col"+lastId[0]+"_"+lastId[1]).html("X");
-                }, 1000);
-                
-            }
-            last=-1;
-        }
+		if(afterGame==false & isBlock==false){
+			val = getPicture(getId(obj.id));
+			$(obj).html(val);
+			if(last==-1)
+			{
+				last = val;
+				lastId = getId(obj.id);
+			} 
+			else 
+			{
+				if(last==val)
+				{
+					$('#score').html(++score);
+					 $(obj).unbind();
+					  $("#col"+lastId[0]+"_"+lastId[1]).unbind();
+					
+				} 
+				else 
+				{
+					isBlock=true;
+					setTimeout(function(){
+						$(obj).html("X");
+						$("#col"+lastId[0]+"_"+lastId[1]).html("X");
+						isBlock=false;
+					}, 1000);
+					
+				}
+				last=-1;
+			}
 		}
     }
 
