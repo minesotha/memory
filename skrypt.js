@@ -2,11 +2,12 @@ setInterval(function(){time()},1000);
 var sec = -1;
 var entTime=120;
 var afterGame =false;
+var revealed = 0;
 function time()
 {
 	if (score == size/2 && afterGame==false){
 	 $('#time').html(sec++);
-	var decision = confirm("Wygrałeś! Twój czas: "+sec+"\n Ilość punktów: "+score+"\n Chcesz zacząć grę od nowa?");
+	var decision = confirm("Wygrałeś! Twój czas: "+sec+"\n Ilość punktów: "+score+"\nŁącznie odkryć: "+revealed+"\n Chcesz zacząć grę od nowa?");
 	AfterGameDecision(decision);
 	
 	}
@@ -17,7 +18,7 @@ function time()
 
 		else{
 			 $('#time').html(sec++);
-			var decision = confirm("Koniec gry! Wynik: "+score+"\n Chcesz zacząć grę od nowa?");
+			var decision = confirm("Koniec gry! Wynik: "+score+"\nŁącznie odkryć: "+revealed+"\n Chcesz zacząć grę od nowa?");
 			AfterGameDecision(decision);
 		
 		}
@@ -111,6 +112,7 @@ function GameBoard() {
 			} 
 			else 
 			{
+				$('#revealed').html(++revealed);
 				if(last==val)
 				{
 				$('#score').html(++score);
